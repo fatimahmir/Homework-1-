@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="evictions_lgl" id="LogicalDesign-11f6" database="LogicalDesign" >
+	<schema name="INSTANCE" catalogname="evictions_lgl" >
+		<table name="Entity" />
+		<table name="dim_building" prior="dim_property" >
+			<column name="building_id" prior="property_id" type="INT" jt="4" mandatory="y" />
+			<column name="BIN_num" type="INT" jt="4" />
+			<column name="BBL_num" type="INT" jt="4" />
+			<index name="pk_dim_property" unique="PRIMARY_KEY" >
+				<column name="building_id" />
+			</index>
+		</table>
+		<table name="dim_location" prior="Entity" >
+			<column name="location_id" prior="eviction_address" type="INT" jt="4" mandatory="y" />
+			<column name="eviction_address" type="VARCHAR" length="100" jt="12" />
+			<column name="eviction_apartment_num" type="VARCHAR" jt="12" />
+			<column name="eviction_borough" prior="borough" type="VARCHAR" jt="12" />
+			<column name="eviction_zip" type="INT" jt="4" />
+			<column name="eviction_latitude" type="DECIMAL" length="5" decimal="12" jt="3" />
+			<column name="eviction_longitude" type="DECIMAL" length="5" decimal="12" jt="3" />
+			<column name="community_board" type="INT" jt="4" />
+			<column name="council_district" type="INT" jt="4" />
+			<column name="census_tract" type="INT" jt="4" />
+			<index name="pk_dim_location" unique="PRIMARY_KEY" >
+				<column name="location_id" />
+			</index>
+		</table>
+		<table name="dim_marshal" prior="h" >
+			<column name="marshal_id" type="INT" jt="4" mandatory="y" />
+			<column name="marshal_fn" type="VARCHAR" jt="12" />
+			<column name="marshal_ln" type="VARCHAR" jt="12" />
+			<index name="pk_dim_marshal" unique="PRIMARY_KEY" >
+				<column name="marshal_id" />
+			</index>
+		</table>
+		<table name="facts_evictions" prior="Entity" >
+			<column name="facts_id" type="BIGINT" jt="-5" mandatory="y" />
+			<column name="court_indexnum" type="INT" jt="4" />
+			<column name="execute_date" type="DATE" jt="91" />
+			<column name="docket_num" type="INT" jt="4" />
+			<column name="location_id" type="INT" jt="4" mandatory="y" />
+			<column name="marshal_id" type="INT" jt="4" mandatory="y" />
+			<column name="property_id" type="INT" jt="4" mandatory="y" />
+			<column name="building_id" type="INT" jt="4" mandatory="y" />
+			<index name="pk_facts_evictions" unique="PRIMARY_KEY" >
+				<column name="facts_id" />
+				<column name="marshal_id" />
+				<column name="location_id" />
+				<column name="property_id" />
+				<column name="building_id" />
+			</index>
+			<fk name="fk_facts_evictions_dim_location" virtual="y" to_schema="evictions_lgl.INSTANCE" to_table="dim_location" type="Identifying" mandatory="y" cardinality="One" range_from="0" range_to="0" >
+				<fk_column name="location_id" pk="location_id" />
+			</fk>
+			<fk name="fk_facts_evictions_dim_marshal" virtual="y" to_schema="evictions_lgl.INSTANCE" to_table="dim_marshal" type="Identifying" mandatory="y" cardinality="OneMore" range_from="0" range_to="0" >
+				<fk_column name="marshal_id" pk="marshal_id" />
+			</fk>
+			<fk name="fk_facts_evictions_property_dim" virtual="y" to_schema="evictions_lgl.INSTANCE" to_table="property_dim" type="Identifying" mandatory="y" cardinality="OneMore" range_from="0" range_to="0" >
+				<fk_column name="property_id" pk="property_id" />
+			</fk>
+			<fk name="fk_facts_evictions_dim_building" virtual="y" to_schema="evictions_lgl.INSTANCE" to_table="dim_building" type="Identifying" mandatory="y" cardinality="OneMore" range_from="0" range_to="0" >
+				<fk_column name="building_id" pk="building_id" />
+			</fk>
+		</table>
+		<table name="property_dim" prior="Entity_0" >
+			<column name="property_id" type="INT" jt="4" mandatory="y" />
+			<column name="property_type" type="VARCHAR" jt="12" />
+			<column name="ejection" type="VARCHAR" jt="12" />
+			<column name="eviction" type="VARCHAR" jt="12" />
+			<index name="pk_property_dim" unique="PRIMARY_KEY" >
+				<column name="property_id" />
+			</index>
+		</table>
+	</schema>
+	<layout name="Default Layout" id="Layout-16d2" show_relation="columns" >
+		<entity schema="evictions_lgl.INSTANCE" name="dim_building" color="C1D8EE" x="240" y="320" />
+		<entity schema="evictions_lgl.INSTANCE" name="dim_location" color="C1D8EE" x="688" y="144" />
+		<entity schema="evictions_lgl.INSTANCE" name="dim_marshal" color="C1D8EE" x="48" y="256" />
+		<entity schema="evictions_lgl.INSTANCE" name="facts_evictions" color="C1D8EE" x="272" y="48" />
+		<entity schema="evictions_lgl.INSTANCE" name="property_dim" color="C1D8EE" x="432" y="256" />
+	</layout>
+</project>
