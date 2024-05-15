@@ -1,1 +1,3 @@
-# Homework-1-
+# Homework-1- and 2 
+
+For my homework, I chose to work on the evictions dataset, which lists pending, scheduled, and executed evictions within the five boroughs from 2017 to the present. Initially, I tried using Azure Blob Storage but encountered link expiration errors, so I switched to Google Cloud Storage. I uploaded the data there and performed dimensional modeling in db schema, using Google BigQuery as the data warehouse. I faced several challenges, such as difficulty in pushing the transformed file to BigQuery and not being able to use URLs in Colab for my data, which required me to upload it manually to Colab.

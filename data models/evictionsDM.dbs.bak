@@ -49,16 +49,16 @@
 				<column name="property_id" />
 				<column name="building_id" />
 			</index>
-			<fk name="fk_facts_evictions_dim_location" virtual="y" to_schema="evictions_lgl.INSTANCE" to_table="dim_location" type="NonIdentifying" mandatory="y" cardinality="One" range_from="0" range_to="0" >
+			<fk name="fk_facts_evictions_dim_location" virtual="y" to_schema="evictions_lgl.INSTANCE" to_table="dim_location" type="Identifying" mandatory="y" cardinality="One" range_from="0" range_to="0" >
 				<fk_column name="location_id" pk="location_id" />
 			</fk>
-			<fk name="fk_facts_evictions_dim_marshal" virtual="y" to_schema="evictions_lgl.INSTANCE" to_table="dim_marshal" type="NonIdentifying" mandatory="y" cardinality="OneMore" range_from="0" range_to="0" >
+			<fk name="fk_facts_evictions_dim_marshal" virtual="y" to_schema="evictions_lgl.INSTANCE" to_table="dim_marshal" type="Identifying" mandatory="y" cardinality="OneMore" range_from="0" range_to="0" >
 				<fk_column name="marshal_id" pk="marshal_id" />
 			</fk>
-			<fk name="fk_facts_evictions_property_dim" virtual="y" to_schema="evictions_lgl.INSTANCE" to_table="property_dim" type="NonIdentifying" mandatory="y" cardinality="OneMore" range_from="0" range_to="0" >
+			<fk name="fk_facts_evictions_property_dim" virtual="y" to_schema="evictions_lgl.INSTANCE" to_table="property_dim" type="Identifying" mandatory="y" cardinality="OneMore" range_from="0" range_to="0" >
 				<fk_column name="property_id" pk="property_id" />
 			</fk>
-			<fk name="fk_facts_evictions_dim_building" to_schema="evictions_lgl.INSTANCE" to_table="dim_building" type="NonIdentifying" mandatory="y" cardinality="OneMore" range_from="0" range_to="0" >
+			<fk name="fk_facts_evictions_dim_building" virtual="y" to_schema="evictions_lgl.INSTANCE" to_table="dim_building" type="Identifying" mandatory="y" cardinality="OneMore" range_from="0" range_to="0" >
 				<fk_column name="building_id" pk="building_id" />
 			</fk>
 		</table>
